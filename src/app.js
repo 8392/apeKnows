@@ -5,10 +5,11 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const jwt = require('koa-jwt')
-const { tokenSecret } = require("./config/jwt")
+const { tokenSecret } = require('./config/jwt')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const catchError = require('./middlewares/exception')
 
 
 // error handler
@@ -31,12 +32,16 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+
+app.use(catchError) //token验证中间件
+
 app
   .use(jwt({
     secret: tokenSecret,
   }).unless({
-    path: [/\/register/, /\/login/],
+    path: [/\/register/, /\/login/, /\/test/],
   }))
+
 
 // routes
 app.use(index.routes(), index.allowedMethods())
@@ -45,6 +50,6 @@ app.use(users.routes(), users.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
-});
+})
 
 module.exports = app

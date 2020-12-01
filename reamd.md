@@ -1,2 +1,12 @@
-# jsowwebtoken 
+# jsowwebtoken
 > 前端请求头设置： authorization: Bearer token
+
+# redis
+获取所有key keys *
+
+删除所有 flushdb
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJOYW1lIjoi5byg5LiJIiwicGFzc3dvcmQiOiIxMjM0NTYifSwiZXhwIjoxNjA2NzkxMzQ4LCJpYXQiOjE2MDY3ODc3NDh9.I7sGUaZCOzqT8XjTBN-w2I_vNNADxDR6OrZpA8L7wEw
+
+""
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJ1c2VyTmFtZSI6IuadjuWbmyIsInBhc3N3b3JkIjoiMTIzNDU2In0sImV4cCI6MTYwNjc5MzYxOCwiaWF0IjoxNjA2NzkwMDE4fQ.0xCJHBXGMyhVEABdmAXZTJ7Cd1mJaXVGA1qWYtxEo0k"
