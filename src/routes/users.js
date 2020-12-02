@@ -1,9 +1,9 @@
 const router = require('koa-router')()
 const jsonwebtoken = require('jsonwebtoken')
 const { tokenSecret } = require('../config/jwt')
-const {get, set} = require('../cache/_redis')
+const { get, set } = require('../cache/_redis')
 const { register, getUserList } = require('../controller/user')
-const {genValidator} = require('../middlewares/validator')
+const { genValidator } = require('../middlewares/validator')
 const userValidate = require('../validator/user')
 
 router.prefix('/users')
@@ -33,13 +33,16 @@ router.post('/login', async (ctx, next) => {
 */
 router.post('/register', genValidator(userValidate), async (ctx, next) => {
   // console.log('query', ctx.request.body)
-  // register()
   const queryArr = ['userName', 'password', 'nickName', 'gender', 'picture', 'city']
-
-  ctx.body = {
-    code: 0,
-    msg: '注册成功！'
+  const query = ctx.request.body
+  let resQuery = {}
+  for (let key in query) {
+    if (queryArr.includes(key)) {
+      resQuery[key] = query[key]
+    }
   }
+  const result = await register(resQuery)
+  ctx.body = result
 })
 
 /*
