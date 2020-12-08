@@ -1,8 +1,8 @@
 
 const seq = require('../seq')
-const {STRING, DECIMAL, DATE, Sequelize} = require('sequelize')
+const { STRING, DECIMAL, DATE, Sequelize } = require('sequelize')
 
-const User = seq.define('user', {
+const userSchema = {
   userName: {
     type: STRING,
     allowNull: false,
@@ -33,6 +33,11 @@ const User = seq.define('user', {
     type: STRING,
     comment: '城市'
   }
-})
+}
 
-module.exports = User
+const User = seq.define('user', userSchema)
+
+module.exports = {
+  userSchema,
+  User
+}

@@ -4,6 +4,7 @@ const { tokenSecret } = require('../config/jwt')
 const { get, set } = require('../cache/_redis')
 const { register, getUserList } = require('../controller/user')
 const { genValidator } = require('../middlewares/validator')
+const { userSchema } = require('../db/model/User')
 const userValidate = require('../validator/user')
 
 router.prefix('/users')
@@ -32,12 +33,10 @@ router.post('/login', async (ctx, next) => {
   注册
 */
 router.post('/register', genValidator(userValidate), async (ctx, next) => {
-  // console.log('query', ctx.request.body)
-  const queryArr = ['userName', 'password', 'nickName', 'gender', 'picture', 'city']
   const query = ctx.request.body
   let resQuery = {}
-  for (let key in query) {
-    if (queryArr.includes(key)) {
+  for (let key in query) {  //筛选出要存入数据库的字段
+    if (Object.keys(userSchema).includes(key)) {
       resQuery[key] = query[key]
     }
   }

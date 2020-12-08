@@ -1,4 +1,4 @@
-const User = require('./User')
+const { User } = require('./User')
 const Catalog = require('./Catalog')
 const Article = require('./Article')
 

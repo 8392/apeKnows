@@ -1,16 +1,18 @@
 const { createUser, findUserList } = require('../dao/user')
+const { SuccessModel, ErrorModel } = require("../core/resModel")
+const { registerUserExist } = require('../core/errorInfor')
 
 const register = async (query) => {
   const result = await createUser(query)
-  return {
-    code: 0,
-    data: result
+  if (result) {
+    return new SuccessModel(result)
   }
+  return new ErrorModel(registerUserExist)
 }
 
 const getUserList = async () => {
-  const res = await findUserList()
-  return res
+  const result = await findUserList()
+  return result
 }
 
 module.exports = {
