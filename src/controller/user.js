@@ -1,14 +1,14 @@
 const { createUser, findUserList, findUserName } = require('../dao/user')
-const { SuccessModel, ErrorModel } = require("../core/resModel")
-const { registerUserExist, loginUserNo } = require('../core/errorInfor')
+const { SuccessModel, ErrorModel } = require('../core/resModel')
+const { registerUserExist, loginUserNo, alreadyLog } = require('../core/errorInfor')
 const jsonwebtoken = require('jsonwebtoken')
 const { tokenSecret } = require('../config/jwt')
 const { get, set } = require('../cache/_redis')
 
-/* 
+/*
   查询用户名是否存在
 */
-const userNameExit = async (query) => {
+const login = async (query) => {
   const result = await findUserName(query.userName)
   const expire = Math.floor(Date.now() / 1000) + (60 * 60)
   if (!result) {
@@ -16,18 +16,16 @@ const userNameExit = async (query) => {
   }
   const userInfor = result.dataValues
   const userId = userInfor.id
-  const redisToken = await get(userId)
   const token = jsonwebtoken.sign({
     data: userInfor,
     // 设置 token 过期时间
     exp: expire
   }, tokenSecret)
-  console.log("token", token)
   set(userId, token, expire) //设置token到redis中
   return new SuccessModel(token)
 }
 
-/* 
+/*
   注册
  */
 const register = async (query) => {
@@ -38,7 +36,7 @@ const register = async (query) => {
   return new ErrorModel(registerUserExist)
 }
 
-/* 
+/*
   获取用户列表
 */
 const getUserList = async () => {
@@ -47,7 +45,7 @@ const getUserList = async () => {
 }
 
 module.exports = {
-  userNameExit,
+  login,
   register,
   getUserList
 }

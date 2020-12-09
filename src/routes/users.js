@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const { userNameExit, register, getUserList } = require('../controller/user')
+const { login, register, getUserList } = require('../controller/user')
 const { genValidator } = require('../middlewares/validator')
 const { userSchema } = require('../db/model/User')
 const userValidate = require('../validator/user')
@@ -9,10 +9,9 @@ router.prefix('/users')
 
 /* 登录 */
 router.post('/login', async (ctx, next) => {
-  const result = await userNameExit(ctx.request.body)
+  const result = await login(ctx.request.body)
   ctx.body = result
 })
-
 
 /*
   注册

@@ -10,6 +10,7 @@ const { tokenSecret } = require('./config/jwt')
 const index = require('./routes/index')
 const users = require('./routes/users')
 const catchError = require('./middlewares/exception')
+const testLogin = require('./middlewares/testLogin')
 
 
 // error handler
@@ -35,12 +36,12 @@ app.use(async (ctx, next) => {
 
 app.use(catchError) //token验证中间件
 
-// app
-//   .use(jwt({
-//     secret: tokenSecret,
-//   }).unless({
-//     path: [/\/register/, /\/login/, /\/test/],
-//   }))
+app
+  .use(jwt({
+    secret: tokenSecret,
+  }).unless({
+    path: [/\/register/, /\/login/, /\/test/],
+  })).use(testLogin)
 
 // routes
 app.use(index.routes(), index.allowedMethods())
