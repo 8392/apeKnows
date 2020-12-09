@@ -1,11 +1,16 @@
 const moment = require('moment')
 const { User } = require('../db/model')
 
-const createUser = async (query) => {
-  // 查询用户名是否存在
+// 查询用户名是否存在
+const findUserName = async (userName) => {
   const isUser = await User.findOne({
-    where: { userName: query.userName }
+    where: { userName: userName }
   })
+  return isUser
+}
+
+const createUser = async (query) => {
+  const isUser = await findUserName(query.userName)
   if (!isUser) { //没找到当前用户
     const result = await User.create(query)
     return '注册成功！'
@@ -17,7 +22,6 @@ const createUser = async (query) => {
 const findUserList = async () => {
   const result = await User.findAndCountAll()
   const userList = result.rows.map((curr) => {
-    console.log("curr", curr)
     const currData = curr.dataValues
     const { createdAt, updatedAt } = currData
     currData.createdAt = moment(createdAt).format('YYYY-MM-DD HH:mm:ss')
@@ -28,6 +32,7 @@ const findUserList = async () => {
 }
 
 module.exports = {
+  findUserName,
   createUser,
   findUserList
 }

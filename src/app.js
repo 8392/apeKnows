@@ -42,12 +42,9 @@ app.use(catchError) //token验证中间件
 //     path: [/\/register/, /\/login/, /\/test/],
 //   }))
 
-
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
-
-
 
 // error-handling
 app.on('error', (err, ctx) => {

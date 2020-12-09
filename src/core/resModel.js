@@ -21,7 +21,7 @@ class BaseModel {
 class SuccessModel extends BaseModel {
   constructor(data = {}) {
     super({
-      code: 1,
+      code: 0,
       data
     })
   }

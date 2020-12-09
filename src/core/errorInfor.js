@@ -9,5 +9,9 @@ module.exports = {
   tokenExpire: {
     code: 401,
     message: 'token已过期'
+  },
+  loginUserNo: {
+    code: 10002,
+    message: '用户名不存在'
   }
 }
