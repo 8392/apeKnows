@@ -7,10 +7,11 @@ const logger = require('koa-logger')
 const jwt = require('koa-jwt')
 const { tokenSecret } = require('./config/jwt')
 
-const index = require('./routes/index')
 const users = require('./routes/users')
-const catchError = require('./middlewares/exception')
-const testLogin = require('./middlewares/testLogin')
+const catalogs = require('./routes/catalogs')
+const article = require('./routes/article')
+const catchError = require('./middlewares/exception')  //token 过期，没有token验证中间件
+const deviceLoginOne = require('./middlewares/deviceLoginOne') //不同设备只能等了一次，验证中间件
 
 
 // error handler
@@ -34,18 +35,19 @@ app.use(async (ctx, next) => {
 })
 
 
-app.use(catchError) //token验证中间件
-app
-  .use(jwt({
-    secret: tokenSecret,
-  }).unless({
-    path: [/\/register/, /\/login/, /\/test/],
-  })).use(testLogin)
+// app.use(catchError) //token验证中间件
+// app
+//   .use(jwt({
+//     secret: tokenSecret,
+//   }).unless({
+//     path: [/\/register/, /\/login/],
+//   })).use(deviceLoginOne)
 
 
 // routes
-app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(catalogs.routes(), catalogs.allowedMethods())
+app.use(article.routes(), article.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -1,4 +1,4 @@
-/* 
+/*
   返回数据基本格式
 */
 
@@ -27,7 +27,7 @@ class SuccessModel extends BaseModel {
   }
 }
 
-/* 
+/*
   失败返回数据
 */
 
@@ -40,9 +40,33 @@ class ErrorModel extends BaseModel {
   }
 }
 
+/*
+  分页返回统一格式
+*/
+
+class TableModel extends BaseModel {
+  constructor(query, data = {}) {
+    const tableData = data.rows.map((curr) => {
+      return curr.dataValues
+    })
+    const page = {
+      total: data.count,
+      ...query
+    }
+    super({
+      code: 0,
+      data: {
+        page,
+        tableData
+      }
+    })
+  }
+}
+
 
 module.exports = {
   SuccessModel,
-  ErrorModel
+  ErrorModel,
+  TableModel
 }
 

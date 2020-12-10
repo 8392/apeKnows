@@ -1,3 +1,5 @@
+# 安装 npm i
+# 运行 npm run dev
 # jsowwebtoken
 > 前端请求头设置： authorization: Bearer token
 

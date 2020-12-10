@@ -31,8 +31,21 @@ const findUserList = async () => {
   return userList
 }
 
+/*
+  修改用户信息
+*/
+const updateUser = async (id, query) => {
+  const result = await User.update(query, {
+    where: {
+      id
+    }
+  })
+  return result[0] === 1
+}
+
 module.exports = {
   findUserName,
   createUser,
-  findUserList
+  findUserList,
+  updateUser
 }

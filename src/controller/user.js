@@ -1,4 +1,4 @@
-const { createUser, findUserList, findUserName } = require('../dao/user')
+const { createUser, findUserList, findUserName, updateUser } = require('../dao/user')
 const { SuccessModel, ErrorModel } = require('../core/resModel')
 const { registerUserExist, loginUserNo, alreadyLog } = require('../core/errorInfor')
 const jsonwebtoken = require('jsonwebtoken')
@@ -44,8 +44,24 @@ const getUserList = async () => {
   return new SuccessModel(result)
 }
 
+/*
+  修改用户信息
+*/
+const updateUserC = async (id, query) => {
+  const result = await updateUser(id, query)
+  console.log('result', result)
+  if(result) {
+    return new SuccessModel('修改成功')
+  }
+  new ErrorModel({
+    code: 502,
+    message: '修改失败'
+  })
+}
+
 module.exports = {
   login,
   register,
-  getUserList
+  getUserList,
+  updateUserC
 }

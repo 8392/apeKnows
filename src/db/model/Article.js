@@ -25,11 +25,6 @@ const Article = seq.define('article', {
     defaultValue: 0,
     comment: '文章浏览次数'
   },
-  userId: {
-    type: INTEGER,
-    allowNull: false,
-    comment: '用户ID'
-  },
   catalogId: {
     type: INTEGER,
     allowNull: false,

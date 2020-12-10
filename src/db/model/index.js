@@ -7,8 +7,8 @@ Article.belongsTo(Catalog, {
   foreignKey: 'catalogId'
 })
 
-User.hasMany(Article)
-Article.belongsTo(User, {
+User.hasMany(Catalog)
+Catalog.belongsTo(User, {
   foreignKey: 'userId'
 })
 
