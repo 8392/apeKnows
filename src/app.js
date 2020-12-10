@@ -35,13 +35,13 @@ app.use(async (ctx, next) => {
 
 
 app.use(catchError) //token验证中间件
-
 app
   .use(jwt({
     secret: tokenSecret,
   }).unless({
     path: [/\/register/, /\/login/, /\/test/],
   })).use(testLogin)
+
 
 // routes
 app.use(index.routes(), index.allowedMethods())

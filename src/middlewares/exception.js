@@ -1,4 +1,5 @@
 
+const { tokenExpire } = require('../core/errorInfor')
 const catchError = async (ctx, next) => {
   try {
     await next()
