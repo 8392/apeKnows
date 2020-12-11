@@ -3,7 +3,7 @@ const { get } = require('../cache/_redis')
 const { tokenSecret } = require('../config/jwt')
 const { alreadyLog } = require('../core/errorInfor')
 const { ErrorModel } = require('../core/resModel')
-const noLoginRout = ['/users/register', '/use\rs/login']
+const noLoginRout = ['/users/register', '/users/login']
 /*
   只能在不同设备上登录一次
 */

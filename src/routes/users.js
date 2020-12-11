@@ -39,8 +39,8 @@ router.get('/getUserList', async (ctx, next) => {
 /*
   修改用户信息
 */
-const validatorUserId = async(ctx, next) => {
-  if(!ctx.request.body.userId) {
+const validatorUserId = async (ctx, next) => {
+  if (!ctx.request.body.userId) {
     ctx.body = {
       code: 999,
       message: '用户Id不能为空'
@@ -49,7 +49,7 @@ const validatorUserId = async(ctx, next) => {
   }
   await next()
 }
-router.put('/updateUser', validatorUserId,  genValidator(userValidate), async(ctx, next) => {
+router.put('/updateUser', validatorUserId, genValidator(userValidate), async (ctx, next) => {
   const query = ctx.request.body
   const id = query.userId
   delete query.id
