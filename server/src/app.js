@@ -35,13 +35,13 @@ app.use(async (ctx, next) => {
 })
 
 
-// app.use(catchError) //token验证中间件
-// app
-//   .use(jwt({
-//     secret: tokenSecret,
-//   }).unless({
-//     path: [/\/register/, /\/login/],
-//   })).use(deviceLoginOne)
+app.use(catchError) //token验证中间件
+app
+  .use(jwt({
+    secret: tokenSecret,
+  }).unless({
+    path: [/\/register/, /\/login/],
+  })).use(deviceLoginOne)
 
 
 // routes

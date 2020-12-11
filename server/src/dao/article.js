@@ -50,8 +50,8 @@ const getDetail = async (id) => {
 /* 获取文章列表 */
 const getArticleList = async ({currPage, pageSize}) => {
   const result = await Article.findAndCountAll({
-    offset: pageSize * (currPage - 1),
-    limit: currPage
+    offset: pageSize * (currPage - 1), //跳过多少条
+    limit: pageSize//每页多少条
   })
   return result
 }

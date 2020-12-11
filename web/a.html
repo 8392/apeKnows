@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="nav">
+    <ul>
+      <li>asd</li>
+      <li>asdas</li>
+      <li>ds</li>
+    </ul>
+  </div>
+  <script>
+    let aTags= document.querySelectorAll('li'); //讲所有a标签放到aTags类中
+    for (let i=0; i<aTags.length; i++){
+      aTags[i].onclick=function (x) {
+        x.preventDefault();
+        let a = x.currentTarget; //返回其监听器触发事件的节点
+        let href = a.getAttribute('href');//'#siteAbot'得到网址
+        let element= document.querySelector(href);
+        let top= element.offsetTop; //得到目标元素不随鼠标滑动而变化的距离文档顶端的偏移量。
+
+        let n=25; //滑动次数
+        let t = 500/n; //每次滑动时间
+        let currentTop = window.scrollY; //当前滑动位置
+        let targetTop = top -80;//目标位置
+        let s = (targetTop-currentTop)/n;//每次滑动路程
+        let i=0;
+        let id=setInterval(()=>{
+            if(i===n){
+                window.clearInterval(id);//滑动结束关闭
+                return;
+            }i=i+1;
+            window.scrollTo(0, currentTop+ s*i);
+        },t)
+      }
+    }
+  </script>
+</body>
+</html>
