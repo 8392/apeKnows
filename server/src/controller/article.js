@@ -66,6 +66,7 @@ const articleDetail = async (id) => {
 /* 获取文章列表 */
 const getList = async (query) => {
   const result = await getArticleList(query)
+  console.log('result', result.rows)
   return new TableModel(query, result)
 }
 

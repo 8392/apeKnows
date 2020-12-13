@@ -12,12 +12,12 @@ const SCHEMA = {
     },
     articleContent: {
       type: 'string',
-      maxLength: 255,
+      maxLength: 20000,
       minLength: 1,
       errorMessage: '文章内容不能为空'
     },
     catalogId: {
-      type: 'number',
+      type: 'string',
       maxLength: 255,
       minLength: 1,
       errorMessage: '标签种类不能为空'
